@@ -16,6 +16,8 @@ import com.ejercicio.usuarios.dto.UsuarioRequestDTO;
 import com.ejercicio.usuarios.dto.UsuarioResponseDTO;
 import com.ejercicio.usuarios.service.UsuarioService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/usuarios")
 public class UsuarioControllerImpl implements UsuarioController {
@@ -28,7 +30,7 @@ public class UsuarioControllerImpl implements UsuarioController {
 
     @Override
     @PostMapping
-    public ResponseEntity<UsuarioResponseDTO> crearUsuario(@RequestBody UsuarioRequestDTO usuarioRequestDTO) {
+    public ResponseEntity<UsuarioResponseDTO> crearUsuario(@Valid @RequestBody UsuarioRequestDTO usuarioRequestDTO) {
         return new ResponseEntity<>(usuarioService.crearUsuario(usuarioRequestDTO), HttpStatus.OK);
     }
 
