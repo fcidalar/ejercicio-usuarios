@@ -22,7 +22,7 @@ public class CustomExceptionHandler {
     public ResponseEntity<ErrorResponseDTO> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         StringBuilder strBuilder = new StringBuilder();
 
-        e.getBindingResult().getAllErrors().forEach((error) -> {
+        e.getBindingResult().getAllErrors().forEach(error -> {
             String fieldName;
             try {
                 fieldName = ((FieldError) error).getField();
