@@ -21,7 +21,6 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-
     private String name;
     private String email;
     private String password;
