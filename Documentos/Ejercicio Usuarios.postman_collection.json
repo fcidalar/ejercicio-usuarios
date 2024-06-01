@@ -1,0 +1,87 @@
+{
+	"info": {
+		"_postman_id": "98e58780-3b18-42f4-9bfa-15007d51e288",
+		"name": "Ejercicio Usuarios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35417957"
+	},
+	"item": [
+		{
+			"name": "Crear Usuario",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Tony Stark\",\r\n  \"email\": \"tony@stark.org\",\r\n  \"password\": \"hunter2\",\r\n  \"phones\": [\r\n    {\r\n      \"number\": \"1234567\",\r\n      \"citycode\": \"1\",\r\n      \"contrycode\": \"57\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Por Nombre",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"Juan Rodriguez\",\r\n  \"email\": \"juan@rodriguez2.org\",\r\n  \"password\": \"hunter2\",\r\n  \"phones\": [\r\n    {\r\n      \"number\": \"1234567\",\r\n      \"citycode\": \"1\",\r\n      \"contrycode\": \"57\"\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios?nombre=Tony",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Tony"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
