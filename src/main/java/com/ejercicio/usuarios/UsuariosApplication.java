@@ -5,6 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+
 @SpringBootApplication
 public class UsuariosApplication {
 
@@ -15,6 +18,12 @@ public class UsuariosApplication {
 	@Bean
 	public ModelMapper modelMapper() {
 		return new ModelMapper();
+	}
+
+	@Bean
+	public OpenAPI customOpenAPI() {
+		return new OpenAPI().info(new Info().title("API Creacion de Usuarios")
+				.description("API resolucion de Ejercicio Creacion De Usuarios").version("0.0.1"));
 	}
 
 }
