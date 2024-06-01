@@ -1,8 +1,10 @@
 package com.ejercicio.usuarios.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
@@ -33,7 +35,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     public UsuarioResponseDTO crearUsuario(UsuarioRequestDTO usuarioRequestDTO) {
-        log.info("[UsuarioServiceImpl]::inicio de servicio");
+        log.info("[crearUsuario]::inicio de servicio");
 
         Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuarioRequestDTO.getEmail());
         if (usuarioExistente.isPresent()) {
@@ -45,12 +47,12 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setId(UUID.randomUUID());
         usuario.setCreated(LocalDateTime.now());
         usuario.setLastLogin(LocalDateTime.now());
-        usuario.setToken("token");
+        usuario.setToken(UUID.randomUUID().toString());
         usuario.setActive(true);
         try {
             usuarioRepository.save(usuario);
 
-            log.info("[UsuarioServiceImpl]::fin de servicio");
+            log.info("[crearUsuario]::fin de servicio");
             return modelMapper.map(usuario, UsuarioResponseDTO.class);
 
         } catch (Exception e) {
@@ -58,6 +60,25 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al crear el usuario: " + e.getMessage());
         }
 
+    }
+
+    @Override
+    public List<UsuarioRequestDTO> buscarPorNombre(String nombre) {
+        log.info("[buscarPorNombre]::inicio de servicio");
+        try {
+            List<Usuario> usuarios = usuarioRepository.findByNameLike(nombre);
+
+            List<UsuarioRequestDTO> usuarioDTOs = usuarios.stream()
+                    .map(usuario -> modelMapper.map(usuario, UsuarioRequestDTO.class))
+                    .collect(Collectors.toList());
+
+            log.info("[buscarPorNombre]::fin de servicio");
+            return usuarioDTOs;
+
+        } catch (Exception e) {
+            log.error("Error al buscar usuarios: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al buscar usuarios: " + e.getMessage());
+        }
     }
 
 }
